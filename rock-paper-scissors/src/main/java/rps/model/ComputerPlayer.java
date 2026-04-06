@@ -33,4 +33,11 @@ public class ComputerPlayer extends Player {
     public void saveData(){
         strat.saveData();
     }
+
+    /**
+     * Returns the strategy's predicted human move from the last round, or null if unavailable.
+     */
+    public Move getPredictedHumanMove() {
+        return strat.getPredictedHumanMove();
+    }
 }

@@ -37,4 +37,25 @@ public class ScoreBoard {
             return Result.DRAW;
         }
     }
+
+    public int getHumanScore() { 
+        return humanScore; 
+    }
+    
+    public int getComputerScore() {
+        return computerScore;
+    }
+    
+    public int getDraws() {
+        return draws;
+    }
+
+    /**
+     * Resets all scores to zero.
+     */
+    public void reset() {
+        humanScore = 0;
+        computerScore = 0;
+        draws = 0;
+    }
 }

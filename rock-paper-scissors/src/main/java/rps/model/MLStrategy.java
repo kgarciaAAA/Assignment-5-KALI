@@ -13,8 +13,9 @@ public class MLStrategy implements ComputerStrategy {
     
     private final GameLogic gameLogic;
     private final GameData gameData;
-    private final HashMap<List<Move>, int[]> moveFrequency; // key = move history, value = frequency of the moves
-    private final Queue<Move> moveHistory; // queue of the move history
+    private final HashMap<List<Move>, int[]> moveFrequency;
+    private final Queue<Move> moveHistory;
+    private Move lastPrediction;
     
     /**
      * Constructor for the MLStrategy class.
@@ -35,17 +36,25 @@ public class MLStrategy implements ComputerStrategy {
     public Move computerStrategyMove() {
         Move computerMove;
 
-        // If the move history is the same as the pattern size, we can try topredict the next move
         if (moveHistory.size() == PATTERN_SIZE) {
             List<Move> key = buildKey();
-            Move predicted = getExpectedPlayerMove(key);
-            // get random move if pattern first encountered, else ask gameLogic to get the winning move
-            computerMove = (predicted == null) ? getRandomMove() : gameLogic.getWinningMove(predicted);
+            lastPrediction = getExpectedPlayerMove(key);
+            computerMove = (lastPrediction == null) ? getRandomMove() : gameLogic.getWinningMove(lastPrediction);
         } else {
+            lastPrediction = null;
             computerMove = getRandomMove();
         }
 
         return computerMove;
+    }
+
+    /**
+     * New method, that returns the predicted human move from the last round.
+     * @return the predicted human move
+     */
+    @Override
+    public Move getPredictedHumanMove() {
+        return lastPrediction;
     }
 
     /**
