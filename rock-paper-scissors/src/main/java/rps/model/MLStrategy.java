@@ -123,6 +123,6 @@ public class MLStrategy implements ComputerStrategy {
      */
     @Override
     public void saveData() {
-        gameData.saveData(moveFrequency);
+        gameData.saveData();
     }
 }

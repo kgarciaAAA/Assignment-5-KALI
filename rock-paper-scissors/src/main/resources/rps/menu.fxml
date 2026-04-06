@@ -27,7 +27,7 @@
                   <Insets bottom="20.0" top="20.0" />
                </padding>
             </Label>
-            <Button fx:id="newGameButton" mnemonicParsing="false" onAction="#switchToModeSelect" prefHeight="35.0" prefWidth="132.0" text="New Game" textAlignment="CENTER">
+            <Button fx:id="newGameButton" mnemonicParsing="false" onAction="#switchToGameOptions" prefHeight="35.0" prefWidth="132.0" text="New Game" textAlignment="CENTER">
                <VBox.margin>
                   <Insets bottom="20.0" top="20.0" />
                </VBox.margin>
