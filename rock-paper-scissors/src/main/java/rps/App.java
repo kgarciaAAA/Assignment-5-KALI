@@ -17,13 +17,15 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("primary"), 600, 720);
+        scene = new Scene(loadFXML("menu"), 700, 600);
         stage.setTitle("Rock Paper Scissors - KALI");
         stage.setScene(scene);
+        stage.setMinWidth(700);
+        stage.setMinHeight(600);
         stage.show();
     }
 
-    static void setRoot(String fxml) throws IOException {
+    public static void setRoot(String fxml) throws IOException {
         scene.setRoot(loadFXML(fxml));
     }
 
