@@ -11,6 +11,7 @@ import rps.model.*;
 public class GameController {
     private Game game;
     private int currentRound;
+    private int totalRounds;
     private Player humanPlayer;
     private ScoreBoard scoreBoard;
 
@@ -53,6 +54,10 @@ public class GameController {
     }
 
     private void playRound(Move move) {
+        if (currentRound > totalRounds) {
+            return;
+        }
+
         RoundData data = game.playRound(move);
 
         humanMoveLabel.setText(data.getHumanMove().toString());
@@ -66,8 +71,16 @@ public class GameController {
         computerWinsLabel.setText(String.valueOf(data.getComputerWins()));
         tiesLabel.setText(String.valueOf(data.getTies()));
 
+        if (currentRound == totalRounds) {
+            roundLabel.setText("Game Over");
+            rockButton.setDisable(true);
+            paperButton.setDisable(true);
+            scissorsButton.setDisable(true);
+            return;
+        }
+
         currentRound++;
-        roundLabel.setText("Round: " + currentRound);
+        roundLabel.setText("Round: " + currentRound + " / " + totalRounds);
     }
 
     @FXML
@@ -75,11 +88,9 @@ public class GameController {
         resetGame();
     }
 
-
-
-
     private void resetGame() {
         this.currentRound = 1;
+        this.totalRounds = App.getSelectedRounds();
 
         GameData gameData = new GameData();
         this.humanPlayer = new HumanPlayer();
@@ -91,8 +102,11 @@ public class GameController {
         GameLogic gameLogic = new GameLogic();
         this.game = new Game(humanPlayer, computerPlayer, scoreBoard, gameLogic);
 
-        // reset UI
-        roundLabel.setText("Round: 1");
+        rockButton.setDisable(false);
+        paperButton.setDisable(false);
+        scissorsButton.setDisable(false);
+
+        roundLabel.setText("Round: 1 / " + totalRounds);
         humanMoveLabel.setText("");
         predictedMoveLabel.setText("");
         computerMoveLabel.setText("");

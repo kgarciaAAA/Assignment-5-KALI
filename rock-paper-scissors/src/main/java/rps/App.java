@@ -8,12 +8,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-/**
- * JavaFX App
- */
 public class App extends Application {
 
     private static Scene scene;
+    private static int selectedRounds = 20;
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -29,6 +27,14 @@ public class App extends Application {
         scene.setRoot(loadFXML(fxml));
     }
 
+    public static void setSelectedRounds(int rounds) {
+        selectedRounds = rounds;
+    }
+
+    public static int getSelectedRounds() {
+        return selectedRounds;
+    }
+
     private static Parent loadFXML(String fxml) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
         return fxmlLoader.load();
@@ -37,5 +43,4 @@ public class App extends Application {
     public static void main(String[] args) {
         launch();
     }
-
 }
