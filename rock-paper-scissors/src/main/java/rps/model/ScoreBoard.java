@@ -37,4 +37,18 @@ public class ScoreBoard {
             return Result.DRAW;
         }
     }
+
+    public int getHumanWins() {
+        return humanScore;
+    }
+
+    public int getComputerWins() {
+        return computerScore;
+    }
+
+    public int getTies() {
+        return draws;
+    }
+
+
 }

@@ -1,56 +1,46 @@
 package rps.model;
 
 public class Game {
-    //private final int numberOfRounds;
     private final Player humanPlayer;
     private final Player computerPlayer;
     private final ScoreBoard scoreBoard;
     private final GameLogic gameLogic;
-    //private final DisplayResult displayResult;
 
-    // //Default Constructor
-    // public Game(int numberOfRounds, Player humanPlayer, Player computerPlayer, ScoreBoard scoreBoard, GameLogic gameLogic, DisplayResult displayResult) {
-    //     this.numberOfRounds = numberOfRounds;
-    //     this.humanPlayer = humanPlayer;
-    //     this.computerPlayer = computerPlayer;
-    //     this.scoreBoard = scoreBoard;
-    //     this.gameLogic = gameLogic;
-    //     this.displayResult = displayResult;
-    // }
-
-    //Default Constructor
-    public Game(Player humanPlayer, Player computerPlayer, ScoreBoard scoreBoard, GameLogic gameLogic) {
+    public Game(Player humanPlayer, Player computerPlayer,
+                ScoreBoard scoreBoard, GameLogic gameLogic) {
         this.humanPlayer = humanPlayer;
         this.computerPlayer = computerPlayer;
         this.scoreBoard = scoreBoard;
         this.gameLogic = gameLogic;
     }
 
+    public RoundData playRound(Move humanMove) {
+        if (humanPlayer instanceof HumanPlayer human) {
+            human.setHumanPlayerMove(humanMove);
+        }
 
-    // /**
-    //  * Begins and manages the entire game session
-    //  */
-    // public void startGame() {
-    //     System.out.println("**** Game Start ****\n");
-    //     for (int round = 1; round <= numberOfRounds; round++) {
-    //         System.out.print("Round " + round + " - ");
+        Move predictedMove = null;
+        if (computerPlayer instanceof ComputerPlayer computer) {
+            predictedMove = computer.getPredictedMove();
+        }
 
-    //         GameRound gameRound = new GameRound(humanPlayer, computerPlayer, gameLogic);
-    //         computerPlayer.processRound(gameRound.getHumanMove(), gameRound.getComputerMove());
-    //         Result roundResult = gameRound.getRoundResult();
-    //         displayResult.printRoundResult(gameRound.getHumanMove(), gameRound.getComputerMove(), roundResult);
-    //         scoreBoard.recordResult(roundResult);
-    //         scoreBoard.displayScore();
-    //     }
-    //     Result gameResult = scoreBoard.getGameWinner();
-    //     displayResult.printGameResult(gameResult);
-    // }
-
-    public void playRound() {
         GameRound gameRound = new GameRound(humanPlayer, computerPlayer, gameLogic);
-        computerPlayer.processRound(gameRound.getHumanMove(), gameRound.getComputerMove());
-        Result roundResult = gameRound.getRoundResult();
-        scoreBoard.recordResult(roundResult);
-    }
 
+        Move actualHumanMove = gameRound.getHumanMove();
+        Move computerMove = gameRound.getComputerMove();
+        Result result = gameRound.getRoundResult();
+
+        computerPlayer.processRound(actualHumanMove, computerMove);
+        scoreBoard.recordResult(result);
+
+        return new RoundData(
+                actualHumanMove,
+                predictedMove,
+                computerMove,
+                result,
+                scoreBoard.getHumanWins(),
+                scoreBoard.getComputerWins(),
+                scoreBoard.getTies()
+        );
+    }
 }

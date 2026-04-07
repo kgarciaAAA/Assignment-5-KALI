@@ -8,7 +8,7 @@
 <?import javafx.scene.text.Font?>
 
 
-<StackPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="116.0" prefWidth="158.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="rps.controllers.AboutController">
+<StackPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="116.0" prefWidth="158.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="rps.controllers.AboutController">
    <children>
       <VBox alignment="CENTER" prefHeight="102.0" prefWidth="186.0" StackPane.alignment="CENTER">
          <children>

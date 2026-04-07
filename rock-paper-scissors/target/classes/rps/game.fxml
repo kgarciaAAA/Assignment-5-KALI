@@ -2,113 +2,196 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.text.TextFlow?>
 
-<StackPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="353.0" prefWidth="417.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="rps.controllers.GameController">
+<StackPane xmlns="http://javafx.com/javafx/17"
+           xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="rps.controllers.GameController"
+           prefWidth="900.0" prefHeight="600.0">
+
    <children>
-      <VBox alignment="CENTER" prefHeight="102.0" prefWidth="186.0" StackPane.alignment="CENTER">
-         <children>
-            <Label fx:id="roundLabel" alignment="BOTTOM_CENTER" prefHeight="37.0" prefWidth="98.0" text="Round: " textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS">
-               <font>
-                  <Font name="System Bold" size="18.0" />
-               </font>
-               <padding>
-                  <Insets bottom="20.0" />
-               </padding>
-            </Label>
-            <Label prefHeight="27.0" prefWidth="180.0" text="Human Player Move:">
-               <font>
-                  <Font name="System Bold" size="18.0" />
-               </font>
-               <VBox.margin>
-                  <Insets top="10.0" />
-               </VBox.margin>
-            </Label>
-            <ButtonBar prefHeight="40.0" prefWidth="405.0">
-              <buttons>
-                  <Label text="Choose:" />
-                <Button fx:id="rockButton" mnemonicParsing="false" text="Rock" />
-                  <Button fx:id="paperButton" mnemonicParsing="false" text="Paper" />
-                  <Button fx:id="scissorsButton" mnemonicParsing="false" text="Scissors" />
-              </buttons>
-               <VBox.margin>
-                  <Insets bottom="5.0" left="50.0" right="5.0" top="5.0" />
-               </VBox.margin>
-               <padding>
-                  <Insets right="60.0" />
-               </padding>
-            </ButtonBar>
-            <TextFlow prefHeight="20.0" prefWidth="465.0" textAlignment="CENTER">
-               <children>
-                  <Label prefHeight="17.0" prefWidth="131.0" text="Human Player Choose: " />
-                  <Label fx:id="humanMoveLabel" prefHeight="17.0" prefWidth="51.0" />
-               </children>
-               <VBox.margin>
-                  <Insets bottom="5.0" />
-               </VBox.margin>
-            </TextFlow>
-            <Label prefHeight="27.0" prefWidth="204.0" text="Computer Player Move:">
-               <font>
-                  <Font name="System Bold" size="18.0" />
-               </font>
-               <VBox.margin>
-                  <Insets bottom="10.0" top="10.0" />
-               </VBox.margin>
-            </Label>
-            <TextFlow prefHeight="20.0" prefWidth="465.0" textAlignment="CENTER">
-               <children>
-                  <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="179.0" text="Predicted human choice: " />
-                  <Label fx:id="predictedMoveLabel" alignment="CENTER" prefHeight="17.0" prefWidth="47.0" />
-               </children>
-            </TextFlow>
-            <TextFlow prefHeight="20.0" prefWidth="465.0" textAlignment="CENTER">
-               <children>
-                  <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="180.0" text="Therefore, computer choose:" />
-                  <Label fx:id="computerMoveLabel" alignment="CENTER" prefHeight="17.0" prefWidth="52.0" />
-               </children>
-            </TextFlow>
-            <TextFlow prefHeight="36.0" prefWidth="465.0" textAlignment="CENTER">
-               <children>
-                  <Label prefHeight="27.0" prefWidth="145.0" text="Round Winner:">
-                     <font>
-                        <Font name="System Bold" size="18.0" />
-                     </font>
-                  </Label>
-                  <Label prefHeight="17.0" prefWidth="96.0" />
-               </children>
-               <VBox.margin>
-                  <Insets bottom="10.0" top="20.0" />
-               </VBox.margin>
-            </TextFlow>
-            <Label prefHeight="27.0" prefWidth="120.0" text="Current Stats:">
-               <font>
-                  <Font name="System Bold" size="18.0" />
-               </font>
-            </Label>
-            <TextFlow prefHeight="17.0" prefWidth="465.0" textAlignment="CENTER">
-               <children>
-                  <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="119.0" text="Human Player Wins:" textAlignment="RIGHT" />
-                  <Label fx:id="humanWinsLabel" alignment="CENTER" prefHeight="17.0" prefWidth="47.0" text="0" />
-               </children>
-            </TextFlow>
-            <TextFlow prefHeight="21.0" prefWidth="465.0" textAlignment="CENTER">
-               <children>
-                  <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="121.0" text="Computer Player Wins:" />
-                  <Label fx:id="computerWinsLabel" alignment="CENTER" prefHeight="17.0" prefWidth="46.0" text="0" />
-               </children>
-            </TextFlow>
-            <TextFlow prefHeight="9.0" prefWidth="465.0" textAlignment="CENTER">
-               <children>
-                  <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="122.0" text="Ties: " textAlignment="RIGHT" />
-                  <Label fx:id="tiesLabel" alignment="CENTER" prefHeight="17.0" prefWidth="40.0" text="0" />
-               </children>
-            </TextFlow>
-         </children>
+      <VBox alignment="TOP_CENTER" spacing="18.0" prefWidth="850.0" maxWidth="850.0">
+         <padding>
+            <Insets top="25.0" right="25.0" bottom="25.0" left="25.0"/>
+         </padding>
+
+         <Label text="Rock-Paper-Scissors">
+            <font>
+               <Font name="System Bold" size="34.0"/>
+            </font>
+         </Label>
+
+         <Label fx:id="roundLabel" text="Round: 1">
+            <font>
+               <Font size="26.0"/>
+            </font>
+         </Label>
+
+         <Label text="Choose Rock, Paper, or Scissors">
+            <font>
+               <Font size="20.0"/>
+            </font>
+         </Label>
+
+         <HBox alignment="CENTER" spacing="28.0">
+            <children>
+               <Button fx:id="rockButton"
+                       text="Rock"
+                       onAction="#handleRock"
+                       prefWidth="170.0"
+                       prefHeight="52.0"/>
+
+               <Button fx:id="paperButton"
+                       text="Paper"
+                       onAction="#handlePaper"
+                       prefWidth="170.0"
+                       prefHeight="52.0"/>
+
+               <Button fx:id="scissorsButton"
+                       text="Scissors"
+                       onAction="#handleScissors"
+                       prefWidth="170.0"
+                       prefHeight="52.0"/>
+            </children>
+         </HBox>
+
+         <HBox alignment="CENTER" spacing="10.0">
+            <children>
+               <Label text="Human choice:">
+                  <font>
+                     <Font size="18.0"/>
+                  </font>
+               </Label>
+               <Label fx:id="humanMoveLabel">
+                  <font>
+                     <Font size="18.0"/>
+                  </font>
+               </Label>
+            </children>
+         </HBox>
+
+         <Separator prefWidth="760.0"/>
+
+         <VBox spacing="16.0" alignment="CENTER" prefWidth="760.0">
+            <children>
+               <HBox alignment="CENTER" spacing="10.0">
+                  <children>
+                     <Label text="Computer's prediction:">
+                        <font>
+                           <Font size="18.0"/>
+                        </font>
+                     </Label>
+                     <Label fx:id="predictedMoveLabel">
+                        <font>
+                           <Font size="18.0"/>
+                        </font>
+                     </Label>
+                  </children>
+               </HBox>
+
+               <HBox alignment="CENTER" spacing="10.0">
+                  <children>
+                     <Label text="Computer's choice:">
+                        <font>
+                           <Font size="18.0"/>
+                        </font>
+                     </Label>
+                     <Label fx:id="computerMoveLabel">
+                        <font>
+                           <Font size="18.0"/>
+                        </font>
+                     </Label>
+                  </children>
+               </HBox>
+
+               <HBox alignment="CENTER" spacing="10.0">
+                  <children>
+                     <Label text="Round result:">
+                        <font>
+                           <Font size="18.0"/>
+                        </font>
+                     </Label>
+                     <Label fx:id="roundWinnerLabel">
+                        <font>
+                           <Font size="18.0"/>
+                        </font>
+                     </Label>
+                  </children>
+               </HBox>
+            </children>
+         </VBox>
+
+         <Separator prefWidth="760.0"/>
+
+         <HBox alignment="CENTER" spacing="15.0">
+            <children>
+               <Label text="Human Wins:">
+                  <font>
+                     <Font size="18.0"/>
+                  </font>
+               </Label>
+               <Label fx:id="humanWinsLabel" text="0">
+                  <font>
+                     <Font size="18.0"/>
+                  </font>
+               </Label>
+
+               <Label text="|">
+                  <font>
+                     <Font size="18.0"/>
+                  </font>
+               </Label>
+
+               <Label text="Computer Wins:">
+                  <font>
+                     <Font size="18.0"/>
+                  </font>
+               </Label>
+               <Label fx:id="computerWinsLabel" text="0">
+                  <font>
+                     <Font size="18.0"/>
+                  </font>
+               </Label>
+
+               <Label text="|">
+                  <font>
+                     <Font size="18.0"/>
+                  </font>
+               </Label>
+
+               <Label text="Ties:">
+                  <font>
+                     <Font size="18.0"/>
+                  </font>
+               </Label>
+               <Label fx:id="tiesLabel" text="0">
+                  <font>
+                     <Font size="18.0"/>
+                  </font>
+               </Label>
+            </children>
+         </HBox>
+
+         <Separator prefWidth="760.0"/>
+
+         <HBox alignment="CENTER" spacing="20.0">
+            <children>
+               <Button text="Reset Game"
+                       onAction="#handleResetGame"
+                       prefWidth="200.0"
+                       prefHeight="52.0"/>
+
+               <Button text="Back to Menu"
+                       onAction="#switchToMenu"
+                       prefWidth="200.0"
+                       prefHeight="52.0"/>
+            </children>
+         </HBox>
       </VBox>
    </children>
 </StackPane>

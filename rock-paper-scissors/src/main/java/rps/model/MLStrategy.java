@@ -125,4 +125,9 @@ public class MLStrategy implements ComputerStrategy {
     public void saveData() {
         gameData.saveData();
     }
+
+    @Override
+    public Move getPredictedMove() {
+        return null;
+    }
 }
