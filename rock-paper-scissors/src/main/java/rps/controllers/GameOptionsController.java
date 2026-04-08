@@ -21,13 +21,15 @@ public class GameOptionsController {
     }
 
     @FXML
-    public void switchToGame() throws IOException{
+    public void switchToGame() throws IOException {
+        App.getGameSettings().setTotalRounds(numRoundComboBox.getValue());
         App.setRoot("game");
     }
-
     @FXML
     public void switchToMenu() throws IOException {
         App.setRoot("menu");
     }
+
+
 
 }

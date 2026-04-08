@@ -46,7 +46,7 @@ public class GameController {
 
     @FXML 
     public void initialize() {
-        this.totalRounds = 20;
+        this.totalRounds = App.getGameSettings().getTotalRounds();
         this.currentRound = 1;
         roundLabel.setText("Round: " + currentRound + "/" + totalRounds);
         GameData gameData = new GameData();
