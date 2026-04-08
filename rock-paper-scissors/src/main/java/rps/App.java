@@ -7,6 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import rps.model.GameSettings;
 
 /**
  * JavaFX App
@@ -32,6 +33,11 @@ public class App extends Application {
     private static Parent loadFXML(String fxml) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
         return fxmlLoader.load();
+    }
+    private static final GameSettings gameSettings = new GameSettings();
+
+    public static GameSettings getGameSettings() {
+        return gameSettings;
     }
 
     public static void main(String[] args) {
