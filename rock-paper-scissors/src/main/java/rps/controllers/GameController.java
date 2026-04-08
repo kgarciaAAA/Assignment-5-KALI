@@ -46,9 +46,8 @@ public class GameController {
 
     @FXML 
     public void initialize() {
-        // TODO: MOVE INTO MENU CONTROLLER?
-        this.totalRounds = 20;
-        roundLabel.setText("Round: 1/" + totalRounds);
+        this.totalRounds = App.getGameSettings().getTotalRounds();
+        roundLabel.setText("Round: " + currentRound + "/" + totalRounds);
         GameData gameData = new GameData();
         this.humanPlayer = new HumanPlayer();
         this.computerPlayer = new ComputerPlayer(ComputerStrategyFactory.createStrategy("-m", gameData));
