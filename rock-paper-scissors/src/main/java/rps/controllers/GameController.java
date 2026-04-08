@@ -22,10 +22,10 @@ import rps.model.ScoreBoard;
 public class GameController {
     private Game game;
     private Integer totalRounds;
-    private Integer currentRound;
     private Player humanPlayer;
     private Player computerPlayer;
     private ScoreBoard scoreBoard;
+    private GameRound currentGameRound;
 
     @FXML private Label roundLabel;
     @FXML private Label humanMoveLabel;
@@ -46,58 +46,73 @@ public class GameController {
 
     @FXML 
     public void initialize() {
-        this.totalRounds = 20;
-        this.currentRound = 1;
-        roundLabel.setText("Round: " + currentRound + "/" + totalRounds);
+        this.totalRounds = App.getGameSettings().getTotalRounds();
         GameData gameData = new GameData();
         this.humanPlayer = new HumanPlayer();
         this.computerPlayer = new ComputerPlayer(ComputerStrategyFactory.createStrategy("-m", gameData));
         this.scoreBoard = new ScoreBoard();
         GameLogic gameLogic = new GameLogic();
-        this.game = new Game(humanPlayer, computerPlayer, scoreBoard, gameLogic, gameData);
+        this.game = new Game(humanPlayer, computerPlayer, scoreBoard, gameLogic, gameData, totalRounds);
+        roundLabel.setText("Round: " + game.getCurrentRound() + "/" + totalRounds);
     }
 
     @FXML
-    public void handleRock(){
+    public void handleRock() {
         humanPlayer.setPlayerMove(Move.ROCK);
+        startRound();
         updateUI();
     }
 
     @FXML
-    public void handlePaper(){
+    public void handlePaper() {
         humanPlayer.setPlayerMove(Move.PAPER);
+        startRound();
         updateUI();
     }
 
     @FXML
-    public void handleScissors(){
+    public void handleScissors() {
         humanPlayer.setPlayerMove(Move.SCISSORS);
+        startRound();
         updateUI();
+    }
+
+    @FXML
+    public void startRound() {
+        this.currentGameRound = game.playRound();
     }
 
 
     @FXML
-    public void updateUI(){
-        GameRound gameRound = game.playRound();
-        humanMoveLabel.setText("" + gameRound.getHumanMove());
+    public void updateUI() {
+        updateRoundLabels();
+        updateScoreBoard();
+
+        if (game.isGameOver())
+            gameOver();
+        else 
+            roundLabel.setText("Round: " + game.getCurrentRound() + "/" + totalRounds);
+    }
+
+    @FXML
+    private void updateRoundLabels() {
+        humanMoveLabel.setText("" + currentGameRound.getHumanMove());
         if (computerPlayer.getPredictedMove() != null) {
             predictedMoveLabel.setText("" + computerPlayer.getPredictedMove());
         } else {
             predictedMoveLabel.setText("N/A");
         }
-        computerMoveLabel.setText("" + gameRound.getComputerMove());
-        roundWinnerLabel.setText("" + gameRound.getRoundResult());
+
+        computerMoveLabel.setText("" + currentGameRound.getComputerMove());
+        roundWinnerLabel.setText("" + currentGameRound.getRoundResult());
+    }
+
+
+    @FXML
+    private void updateScoreBoard() {
         humanWinsLabel.setText("" + scoreBoard.getHumanScore());
         computerWinsLabel.setText("" + scoreBoard.getComputerScore());
         drawsLabel.setText("" + scoreBoard.getDraws());
-
-        if (currentRound < totalRounds) {
-            currentRound++;
-            roundLabel.setText("Round: " + currentRound + "/" + totalRounds);
-        } else {
-            gameOver();
-        }
-        
     }
 
     @FXML
@@ -115,9 +130,14 @@ public class GameController {
     public void handlePlayAgain() {
         gameOverVBox.setDisable(true);
         gameOverVBox.setOpacity(0);
-        this.currentRound = 1;
-        roundLabel.setText("Round: " + currentRound);
-        scoreBoard.resetScores();
+        
+        game.resetGame();   
+        resetGameUI();
+    }
+
+    @FXML 
+    private void resetGameUI() {
+        roundLabel.setText("Round: 1");
         humanMoveLabel.setText("N/A");
         predictedMoveLabel.setText("N/A");
         computerMoveLabel.setText("N/A");
@@ -129,8 +149,8 @@ public class GameController {
         rockButton.setDisable(false);
         paperButton.setDisable(false);
         scissorsButton.setDisable(false);
+    }
 
-        }
 
     @FXML
     public void switchToMenu() throws IOException{
@@ -141,7 +161,5 @@ public class GameController {
     private void exitGame() {
         Platform.exit();
     }
-
-    
 
 }

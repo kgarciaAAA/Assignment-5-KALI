@@ -1,12 +1,14 @@
 package rps.model;
 
 public class Game {
-    //private final int numberOfRounds;
+    private final int numberOfRounds;
     private final Player humanPlayer;
     private final Player computerPlayer;
     private final ScoreBoard scoreBoard;
     private final GameLogic gameLogic;
     private final GameData gameData;
+    private int currentRound;
+    
     //private final DisplayResult displayResult;
 
     // //Default Constructor
@@ -20,12 +22,14 @@ public class Game {
     // }
 
     //Default Constructor
-    public Game(Player humanPlayer, Player computerPlayer, ScoreBoard scoreBoard, GameLogic gameLogic, GameData gameData) {
+    public Game(Player humanPlayer, Player computerPlayer, ScoreBoard scoreBoard, GameLogic gameLogic, GameData gameData, int numberOfRounds) {
+        this.currentRound = 1;
         this.humanPlayer = humanPlayer;
         this.computerPlayer = computerPlayer;
         this.scoreBoard = scoreBoard;
         this.gameLogic = gameLogic;
         this.gameData = gameData;
+        this.numberOfRounds = numberOfRounds;
     }
 
 
@@ -53,7 +57,22 @@ public class Game {
         computerPlayer.processRound(gameRound.getHumanMove(), gameRound.getComputerMove());
         Result roundResult = gameRound.getRoundResult();
         scoreBoard.recordResult(roundResult);
+        currentRound++;
         return gameRound;
+    }
+
+    public boolean isGameOver() {
+        return numberOfRounds < currentRound;
+    }
+
+    public int getCurrentRound() {
+        return currentRound;
+    }
+
+    public void resetGame() {
+        save();
+        scoreBoard.resetScores();
+        currentRound = 1;
     }
 
     public void save() {
