@@ -22,6 +22,7 @@ public class GameOptionsController {
 
     @FXML
     public void switchToGame() throws IOException{
+        App.setTotalRounds(getSelectedRounds());
         App.setRoot("game");
     }
 }

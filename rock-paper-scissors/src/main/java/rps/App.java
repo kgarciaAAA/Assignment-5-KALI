@@ -14,6 +14,18 @@ import javafx.stage.Stage;
 public class App extends Application {
 
     private static Scene scene;
+    private static int totalRounds;
+
+    //getter
+    public static int getTotalRounds() {
+        return totalRounds;
+    }
+
+    //setter
+    public static void setTotalRounds(int totalRounds) {
+        App.totalRounds = totalRounds;
+    }
+
 
     @Override
     public void start(Stage stage) throws IOException {

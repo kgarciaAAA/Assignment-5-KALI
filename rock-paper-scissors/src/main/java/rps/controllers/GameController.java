@@ -47,7 +47,7 @@ public class GameController {
     @FXML 
     public void initialize() {
         // TODO: MOVE INTO MENU CONTROLLER?
-        this.totalRounds = 20;
+        this.totalRounds = App.getTotalRounds();
         roundLabel.setText("Round: 1/" + totalRounds);
         GameData gameData = new GameData();
         this.humanPlayer = new HumanPlayer();
