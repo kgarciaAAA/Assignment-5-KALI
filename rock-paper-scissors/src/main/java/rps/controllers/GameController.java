@@ -1,8 +1,167 @@
 package rps.controllers;
 
-import rps.App;
+import java.io.IOException;
+
+import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.layout.VBox;
+import rps.App;
+import rps.model.ComputerPlayer;
+import rps.model.ComputerStrategyFactory;
+import rps.model.Game;
+import rps.model.GameData;
+import rps.model.GameLogic;
+import rps.model.GameRound;
+import rps.model.HumanPlayer;
+import rps.model.Move;
+import rps.model.Player;
+import rps.model.ScoreBoard;
 
 public class GameController {
-    
+    private Game game;
+    private Integer totalRounds;
+    private Player humanPlayer;
+    private Player computerPlayer;
+    private ScoreBoard scoreBoard;
+    private GameRound currentGameRound;
+
+    @FXML private Label roundLabel;
+    @FXML private Label humanMoveLabel;
+    @FXML private Label predictedMoveLabel;
+    @FXML private Label computerMoveLabel;
+    @FXML private Label roundWinnerLabel;
+    @FXML private Label computerWinsLabel;
+    @FXML private Label humanWinsLabel;
+    @FXML private Label drawsLabel;
+    @FXML private Label gameWinnerLabel;
+
+    @FXML private Button rockButton;
+    @FXML private Button paperButton;
+    @FXML private Button scissorsButton;
+
+    @FXML private VBox gameOverVBox;
+
+
+    @FXML 
+    public void initialize() {
+        // TODO: MOVE INTO MENU CONTROLLER?
+        this.totalRounds = 20;
+        roundLabel.setText("Round: 1/" + totalRounds);
+        GameData gameData = new GameData();
+        this.humanPlayer = new HumanPlayer();
+        this.computerPlayer = new ComputerPlayer(ComputerStrategyFactory.createStrategy("-m", gameData));
+        this.scoreBoard = new ScoreBoard();
+        GameLogic gameLogic = new GameLogic();
+        this.game = new Game(humanPlayer, computerPlayer, scoreBoard, gameLogic, gameData, totalRounds);
+    }
+
+    @FXML
+    public void handleRock() {
+        humanPlayer.setPlayerMove(Move.ROCK);
+        startRound();
+        updateUI();
+    }
+
+    @FXML
+    public void handlePaper() {
+        humanPlayer.setPlayerMove(Move.PAPER);
+        startRound();
+        updateUI();
+    }
+
+    @FXML
+    public void handleScissors() {
+        humanPlayer.setPlayerMove(Move.SCISSORS);
+        startRound();
+        updateUI();
+    }
+
+    @FXML
+    public void startRound() {
+        this.currentGameRound = game.playRound();
+    }
+
+
+    @FXML
+    public void updateUI() {
+        updateRoundLabels();
+        updateScoreBoard();
+
+        if (game.isGameOver())
+            gameOver();
+        else 
+            roundLabel.setText("Round: " + game.getCurrentRound() + "/" + totalRounds);
+    }
+
+    @FXML
+    private void updateRoundLabels() {
+
+        humanMoveLabel.setText("" + currentGameRound.getHumanMove());
+        if (computerPlayer.getPredictedMove() != null) {
+            predictedMoveLabel.setText("" + computerPlayer.getPredictedMove());
+        } else {
+            predictedMoveLabel.setText("N/A");
+        }
+
+        computerMoveLabel.setText("" + currentGameRound.getComputerMove());
+        roundWinnerLabel.setText("" + currentGameRound.getRoundResult());
+    }
+
+
+    @FXML
+    private void updateScoreBoard() {
+        humanWinsLabel.setText("" + scoreBoard.getHumanScore());
+        computerWinsLabel.setText("" + scoreBoard.getComputerScore());
+        drawsLabel.setText("" + scoreBoard.getDraws());
+    }
+
+    @FXML
+    public void gameOver() {
+        rockButton.setDisable(true);
+        paperButton.setDisable(true);
+        scissorsButton.setDisable(true);
+        gameWinnerLabel.setText("" + scoreBoard.getGameWinner());
+        gameOverVBox.setDisable(false);
+        gameOverVBox.setOpacity(1.0);
+        game.save();
+    }
+
+    @FXML 
+    public void handlePlayAgain() {
+        gameOverVBox.setDisable(true);
+        gameOverVBox.setOpacity(0);
+        
+        game.resetGame();   
+        resetGameUI();
+    }
+
+    @FXML 
+    private void resetGameUI() {
+        roundLabel.setText("Round: 1");
+        humanMoveLabel.setText("N/A");
+        predictedMoveLabel.setText("N/A");
+        computerMoveLabel.setText("N/A");
+        roundWinnerLabel.setText("N/A");
+        humanWinsLabel.setText("0");
+        computerWinsLabel.setText("0");
+        drawsLabel.setText("0");
+
+        rockButton.setDisable(false);
+        paperButton.setDisable(false);
+        scissorsButton.setDisable(false);
+    }
+
+
+    @FXML
+    public void switchToMenu() throws IOException{
+        App.setRoot("menu");
+    }
+
+    @FXML
+    private void exitGame() {
+        Platform.exit();
+    }
+
 }

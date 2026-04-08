@@ -9,8 +9,8 @@ import rps.App;
 public class MenuController {
 
     @FXML
-    private void switchToModeSelect() throws IOException {
-        App.setRoot("modeSelect");
+    private void switchToGameOptions() throws IOException {
+        App.setRoot("gameoptions");
     }
 
     @FXML

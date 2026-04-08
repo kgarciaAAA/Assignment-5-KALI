@@ -18,7 +18,7 @@ public class GameData {
      */
     public HashMap<List<Move>, int[]> loadData(){
         try {
-            Scanner scanner = new Scanner(new File("data.txt"));
+            Scanner scanner = new Scanner(new File("rock-paper-scissors/data.txt"));
                 while (scanner.hasNextLine()) {
                     List<Move> key = new ArrayList<>();
                     String movesLine = scanner.nextLine();
@@ -45,7 +45,7 @@ public class GameData {
      * Saves the current move frequency data to a file.
      * Each entry consists of a sequence of moves followed by frequency counts.
      */
-    public void saveData(HashMap<List<Move>, int[]> updatedMoveFrequency) {
+    public void saveData() {
         try {
             PrintWriter write = new PrintWriter(new File("data.txt"));
             for (List<Move> key : moveFrequency.keySet()) {

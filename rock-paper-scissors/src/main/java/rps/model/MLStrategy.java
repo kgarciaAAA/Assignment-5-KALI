@@ -127,11 +127,8 @@ public class MLStrategy implements ComputerStrategy {
         return Move.convertToMove(new Random().nextInt(3));
     }
 
-    /**
-     * Saves the move frequency to the game data.
-     */
     @Override
-    public void saveData() {
-        gameData.saveData(moveFrequency);
+    public Move getPredictedMove() {
+        return predicted;
     }
 }

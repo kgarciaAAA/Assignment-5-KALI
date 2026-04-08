@@ -5,6 +5,7 @@ public class ScoreBoard {
     private int computerScore;
     private int draws;
 
+
     /**
      * Records the result of a round.
      * @param result DRAW = draw, HUMAN_WIN = human wins, COMPUTER_WIN = computer wins
