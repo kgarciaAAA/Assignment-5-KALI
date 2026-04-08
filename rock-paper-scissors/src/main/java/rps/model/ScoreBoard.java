@@ -5,6 +5,19 @@ public class ScoreBoard {
     private int computerScore;
     private int draws;
 
+    //Getters
+    public int getHumanScore(){
+        return humanScore;
+    }
+
+    public int getComputerScore(){
+        return computerScore;
+    }
+
+    public int getDraws(){
+        return draws;
+    }
+
     /**
      * Records the result of a round.
      * @param result DRAW = draw, HUMAN_WIN = human wins, COMPUTER_WIN = computer wins
@@ -36,5 +49,12 @@ public class ScoreBoard {
         } else {
             return Result.DRAW;
         }
+    }
+
+    //Resets all field values
+    public void resetScores(){
+        humanScore = 0;
+        computerScore = 0;
+        draws = 0;
     }
 }

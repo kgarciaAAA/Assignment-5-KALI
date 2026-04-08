@@ -26,11 +26,8 @@ public class ComputerPlayer extends Player {
         strat.addGameRoundHistory(playerMove, computerMove);
     }
 
-    /**
-     * Triggers the strategy to persist any stored data.
-     */
     @Override
-    public void saveData(){
-        strat.saveData();
+    public Move getPredictedMove(){
+        return strat.getPredictedMove();
     }
 }

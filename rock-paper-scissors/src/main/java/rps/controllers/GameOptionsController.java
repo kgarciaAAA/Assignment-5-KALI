@@ -16,6 +16,10 @@ public class GameOptionsController {
         numRoundsComboBox.setValue(20);
     }
 
+    public int getSelectedRounds() {
+        return numRoundsComboBox.getValue();
+    }
+
     @FXML
     public void switchToGame() throws IOException{
         App.setRoot("game");

@@ -18,7 +18,7 @@ public class GameData {
      */
     public HashMap<List<Move>, int[]> loadData(){
         try {
-            Scanner scanner = new Scanner(new File("data.txt"));
+            Scanner scanner = new Scanner(new File("rock-paper-scissors/data.txt"));
                 while (scanner.hasNextLine()) {
                     List<Move> key = new ArrayList<>();
                     String movesLine = scanner.nextLine();

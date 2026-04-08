@@ -6,6 +6,7 @@ public class Game {
     private final Player computerPlayer;
     private final ScoreBoard scoreBoard;
     private final GameLogic gameLogic;
+    private final GameData gameData;
     //private final DisplayResult displayResult;
 
     // //Default Constructor
@@ -19,11 +20,12 @@ public class Game {
     // }
 
     //Default Constructor
-    public Game(Player humanPlayer, Player computerPlayer, ScoreBoard scoreBoard, GameLogic gameLogic) {
+    public Game(Player humanPlayer, Player computerPlayer, ScoreBoard scoreBoard, GameLogic gameLogic, GameData gameData) {
         this.humanPlayer = humanPlayer;
         this.computerPlayer = computerPlayer;
         this.scoreBoard = scoreBoard;
         this.gameLogic = gameLogic;
+        this.gameData = gameData;
     }
 
 
@@ -46,11 +48,17 @@ public class Game {
     //     displayResult.printGameResult(gameResult);
     // }
 
-    public void playRound() {
+    public GameRound playRound() {
         GameRound gameRound = new GameRound(humanPlayer, computerPlayer, gameLogic);
         computerPlayer.processRound(gameRound.getHumanMove(), gameRound.getComputerMove());
         Result roundResult = gameRound.getRoundResult();
         scoreBoard.recordResult(roundResult);
+        return gameRound;
     }
+
+    public void save() {
+        gameData.saveData();
+    }
+
 
 }

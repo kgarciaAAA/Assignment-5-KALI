@@ -7,7 +7,8 @@ public class HumanPlayer extends Player {
     private Move humanPlayerMove;
     
     //setters
-    public void setHumanPlayerMove(Move humanPlayerMove) {
+    @Override
+    public void setPlayerMove(Move humanPlayerMove) {
         this.humanPlayerMove = humanPlayerMove;
     }
     

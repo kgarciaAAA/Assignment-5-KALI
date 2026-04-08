@@ -15,6 +15,7 @@ public class MLStrategy implements ComputerStrategy {
     private final GameData gameData;
     private final HashMap<List<Move>, int[]> moveFrequency; // key = move history, value = frequency of the moves
     private final Queue<Move> moveHistory; // queue of the move history
+    private Move predicted;
     
     /**
      * Constructor for the MLStrategy class.
@@ -38,7 +39,7 @@ public class MLStrategy implements ComputerStrategy {
         // If the move history is the same as the pattern size, we can try topredict the next move
         if (moveHistory.size() == PATTERN_SIZE) {
             List<Move> key = buildKey();
-            Move predicted = getExpectedPlayerMove(key);
+            predicted = getExpectedPlayerMove(key);
             // get random move if pattern first encountered, else ask gameLogic to get the winning move
             computerMove = (predicted == null) ? getRandomMove() : gameLogic.getWinningMove(predicted);
         } else {
@@ -118,11 +119,8 @@ public class MLStrategy implements ComputerStrategy {
         return Move.convertToMove(new Random().nextInt(3));
     }
 
-    /**
-     * Saves the move frequency to the game data.
-     */
     @Override
-    public void saveData() {
-        gameData.saveData();
+    public Move getPredictedMove() {
+        return predicted;
     }
 }
